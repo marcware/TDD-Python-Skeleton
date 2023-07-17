@@ -1,1 +1,2 @@
 pytest==7.3.1
+-e git+https://github.com/aleasoluciones/pydevlib.git#egg=pydevlib
