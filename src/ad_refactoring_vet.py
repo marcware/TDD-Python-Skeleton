@@ -1,7 +1,3 @@
-import itertools
-from typing import List
-
-
 class Note:
     def __init__(self, note_id: int, content: str):
         self.note_id = note_id
@@ -33,31 +29,31 @@ class DiseaseFilter:
     _filters = []
     _filtered_cases = []
 
-    def __init__(self, cases: list[Case], diagnoses: list[Diagnosis]):
-        self.cases = cases
-        self.diagnoses = diagnoses
+    def __init__(self, cases_insert: list[Case], diagnoses_insert: list[Diagnosis]):
+        self.cases = cases_insert
+        self.diagnoses = diagnoses_insert
 
-    def addFilter(self, location: str):
+    def add_filter(self, location: str):
         self._filters.append(location)
 
-    def casesFiltered(self) -> list[Case]:
+    def cases_filtered(self) -> list[Case]:
         _diagnoses_filtered_list = []
 
-        def diagnosesFilteredBy(location: str) -> Diagnosis:
+        def diagnoses_filtered_by(location_search: str) -> Diagnosis:
             for d in self.diagnoses:
-                if d.location == location:
+                if d.location == location_search:
                     return d
 
-        def fromDiagnosisToCasesFiltered(d: Diagnosis) -> None:
+        def from_diagnosis_to_cases_filtered(d: Diagnosis) -> None:
             for c in self.cases:
-                if c.case_id == d.diagnosis_id:
+                if c.diagnosis_id == d.diagnosis_id:
                     self._filtered_cases.append(c)
 
         for location in self._filters:
-            _diagnoses_filtered_list.append(diagnosesFilteredBy(location))
+            _diagnoses_filtered_list.append(diagnoses_filtered_by(location))
 
         for diagnose in _diagnoses_filtered_list:
-            fromDiagnosisToCasesFiltered(diagnose)
+            from_diagnosis_to_cases_filtered(diagnose)
 
         return self._filtered_cases
 
@@ -89,10 +85,11 @@ if __name__ == '__main__':
                   'Perro')
     ]
     diseases_filter = DiseaseFilter(cases, diagnoses)
-    diseases_filter.addFilter('Cerebro')
-    diseases_filter.addFilter('Vías Respiratorias Altas')
+    diseases_filter.add_filter('Cerebro')
+    diseases_filter.add_filter('Vías Respiratorias Altas')
 
-    result = diseases_filter.casesFiltered()
+    result = diseases_filter.cases_filtered()
+
     print(result[0].patient_name)
     print(result[1].patient_name)
 
