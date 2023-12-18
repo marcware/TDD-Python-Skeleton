@@ -1,13 +1,5 @@
-"""
-Tanto el espía como el mock en la terminología de Meszaros son objetos
-que tienen memoria para registrar las llamadas que se les hacen.
-Por otro lado, el stub no tiene memoria sino que simplemente devuelve los valores que le digamos.
-Spy y mock se usan para validar salida indirecta,mientras que stub se utiliza para simular entrada indirecta.
-La diferencia entre spy y el mock estricto es sutil porque ambos tienen memoria.
-"""
-
 from mamba import description, it
-from src.af_double_spies import User, UserRepositoryInterface, UserService
+from src.ah_double_fake import User, UserRepositoryInterface, UserService
 
 USER = "A_USER"
 

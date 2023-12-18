@@ -10,6 +10,13 @@ class User:
     def update_password(self, password: str):
         self._password = password
 
+    def update_name(self, name: str):
+        self._name = name
+
+    def is_equals(self, user:User):
+        return self._name == user.get_name
+
+
     def get_name(self):
         return self._name
 
@@ -22,8 +29,29 @@ class UserRepositoryInterface(ABC):
     def save(self, user: User) -> None:
         pass
 
+    @abstractmethod
+    def add(self, user: User) -> None:
+        pass
+
+    @abstractmethod
+    def delete(self, user: User) -> None:
+        pass
+
+    @abstractmethod
+    def find_user_by(self, name: str) -> None:
+        pass
+
 
 class UserDB(UserRepositoryInterface):
+    def add(self, user: User) -> None:
+        pass
+
+    def delete(self, user: User) -> None:
+        pass
+
+    def find_user_by(self, name: str) -> None:
+        pass
+
     def save(self, user: User) -> None:
         with open('../db/database_spies.csv', 'w') as db:
             db.write(f"{user.get_name()};{user.get_password()}")
